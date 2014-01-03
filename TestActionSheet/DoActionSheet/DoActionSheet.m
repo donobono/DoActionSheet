@@ -335,14 +335,14 @@
     switch (_nAnimationType) {
         case DoTransitionStyleNormal:
         case DoTransitionStylePop:
-            _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height,
-                                             self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height + _dRound + 5);
+            _vActionSheet.frame = CGRectMake(0, self.bounds.size.height,
+                                             self.bounds.size.width, _vActionSheet.frame.size.height + _dRound + 5);
             break;
 
         case DoTransitionStyleFade:
             _vActionSheet.alpha = 0.0;
-            _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 5,
-                                             self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height + _dRound + 5);
+            _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 5,
+                                             self.bounds.size.width, _vActionSheet.frame.size.height + _dRound + 5);
             break;
 
         default:
@@ -356,8 +356,8 @@
 
         switch (_nAnimationType) {
             case DoTransitionStyleNormal:
-                _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
-                                                 self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
+                                                 self.bounds.size.width, _vActionSheet.frame.size.height);
                 
                 break;
                 
@@ -366,8 +366,8 @@
                 break;
                 
             case DoTransitionStylePop:
-                _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 10,
-                                                 self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 10,
+                                                 self.bounds.size.width, _vActionSheet.frame.size.height);
                 
                 break;
                 
@@ -380,14 +380,14 @@
         {
             [UIView animateWithDuration:0.1 animations:^(void) {
 
-                _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 18,
-                                                 self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 18,
+                                                 self.bounds.size.width, _vActionSheet.frame.size.height);
 
             } completion:^(BOOL finished) {
 
                 [UIView animateWithDuration:0.1 animations:^(void) {
-                    _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
-                                                     self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                    _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
+                                                     self.bounds.size.width, _vActionSheet.frame.size.height);
                     
                 }];
             }];
@@ -403,8 +403,8 @@
 
         switch (_nAnimationType) {
             case DoTransitionStyleNormal:
-                _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height,
-                                                 self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                _vActionSheet.frame = CGRectMake(0, self.bounds.size.height,
+                                                 self.bounds.size.width, _vActionSheet.frame.size.height);
                 break;
 
             case DoTransitionStyleFade:
@@ -412,8 +412,8 @@
                 break;
                 
             case DoTransitionStylePop:
-                _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 10,
-                                                 self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 10,
+                                                 self.bounds.size.width, _vActionSheet.frame.size.height);
 
                 break;
         }
@@ -432,8 +432,8 @@
             [UIView animateWithDuration:0.1 animations:^(void) {
                 
                 [UIView setAnimationDelay:0.1];
-                _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height,
-                                                 self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+                _vActionSheet.frame = CGRectMake(0, self.bounds.size.height,
+                                                 self.bounds.size.width, _vActionSheet.frame.size.height);
                 
             } completion:^(BOOL finished) {
 
@@ -461,8 +461,8 @@
 	dispatch_async(dispatch_get_main_queue(), ^(void) {
         
         [UIView animateWithDuration:0.2 animations:^(void) {
-            _vActionSheet.frame = CGRectMake(_dLeftMargin, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
-                                             self.bounds.size.width - (_dLeftMargin + _dRightMargin), _vActionSheet.frame.size.height);
+            _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
+                                             self.bounds.size.width, _vActionSheet.frame.size.height);
         }];
     });
 }

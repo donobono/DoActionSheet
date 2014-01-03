@@ -116,10 +116,6 @@ typedef void(^DoActionSheetHandler)(int nResult);
 @property (readwrite)   BOOL        bDestructive;
 @property (readonly)    int         nTag;
 
-// max value is 20 (_dLeftMargig + _dRightMargin)
-@property (readwrite)   double      dLeftMargin;
-@property (readwrite)   double      dRightMargin;
-
 @property (strong, nonatomic)   NSArray         *aButtons;
 
 // add content
