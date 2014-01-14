@@ -26,6 +26,11 @@
     self.view = _actionSheet;
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return [UIApplication sharedApplication].statusBarStyle;
+}
+
 @end
 
 @implementation DoActionSheet
