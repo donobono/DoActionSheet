@@ -36,16 +36,16 @@
     if (_sgSelectImage.selectedSegmentIndex == 1)
     {
         vActionSheet.iImage = [UIImage imageNamed:@"pic1.jpg"];
-        vActionSheet.nContentMode = DoContentImage;
+        vActionSheet.nContentMode = DoASContentImage;
     }
     else if (_sgSelectImage.selectedSegmentIndex == 2)
     {
         vActionSheet.iImage = [UIImage imageNamed:@"pic2.jpg"];
-        vActionSheet.nContentMode = DoContentImage;
+        vActionSheet.nContentMode = DoASContentImage;
     }
     else if (_sgSelectImage.selectedSegmentIndex == 3)
     {
-        vActionSheet.nContentMode = DoContentMap;
+        vActionSheet.nContentMode = DoASContentMap;
         vActionSheet.dLocation = @{@"latitude" : @(37.78275123), @"longitude" : @(-122.40416442), @"altitude" : @200};
     }
 
@@ -135,13 +135,13 @@
 - (IBAction)onSelectAnimationType:(id)sender
 {
     switch (_sgType.selectedSegmentIndex) {
-        case DoTransitionStyleNormal:
+        case DoASTransitionStyleNormal:
             _lbType.text = @"DoTransitionStyleNormal";
             break;
-        case DoTransitionStyleFade:
+        case DoASTransitionStyleFade:
             _lbType.text = @"DoTransitionStyleFade";
             break;
-        case DoTransitionStylePop:
+        case DoASTransitionStylePop:
             _lbType.text = @"DoTransitionStylePop";
             break;
             

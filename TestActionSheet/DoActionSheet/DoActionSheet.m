@@ -31,6 +31,11 @@
     return [UIApplication sharedApplication].statusBarStyle;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return [UIApplication sharedApplication].statusBarHidden;
+}
+
 @end
 
 @implementation DoActionSheet
@@ -115,8 +120,8 @@
     lb.textAlignment = NSTextAlignmentCenter;
     lb.numberOfLines = 0;
     
-    lb.font = DO_TITLE_FONT;
-    lb.textColor = DO_TITLE_TEXT_COLOR;
+    lb.font = DO_AS_TITLE_FONT;
+    lb.textColor = DO_AS_TITLE_TEXT_COLOR;
 }
 
 - (void)setButtonAttributes:(UIButton *)bt cancel:(BOOL)bCancel
@@ -125,15 +130,15 @@
 
     if (bCancel)
     {
-        bt.backgroundColor = DO_CANCEL_COLOR;
-        bt.titleLabel.font = DO_TITLE_FONT;
-        bt.titleLabel.textColor = DO_CANCEL_TEXT_COLOR;
+        bt.backgroundColor = DO_AS_CANCEL_COLOR;
+        bt.titleLabel.font = DO_AS_TITLE_FONT;
+        bt.titleLabel.textColor = DO_AS_CANCEL_TEXT_COLOR;
     }
     else
     {
-        bt.backgroundColor = DO_BUTTON_COLOR;
-        bt.titleLabel.font = DO_BUTTON_FONT;
-        bt.titleLabel.textColor = DO_BUTTON_TEXT_COLOR;
+        bt.backgroundColor = DO_AS_BUTTON_COLOR;
+        bt.titleLabel.font = DO_AS_BUTTON_FONT;
+        bt.titleLabel.textColor = DO_AS_BUTTON_TEXT_COLOR;
     }
 
     if (_dButtonRound > 0)
@@ -149,38 +154,38 @@
 - (void)showActionSheet
 {
     double dHeight = 0;
-    self.backgroundColor = DO_DIMMED_COLOR;
+    self.backgroundColor = DO_AS_DIMMED_COLOR;
 
     // make back view -----------------------------------------------------------------------------------------------
     _vActionSheet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
-    _vActionSheet.backgroundColor = DO_BACK_COLOR;
+    _vActionSheet.backgroundColor = DO_AS_BACK_COLOR;
     [self addSubview:_vActionSheet];
     
     // Title --------------------------------------------------------------------------------------------------------
     if (_strTitle != nil && _strTitle.length > 0)
     {
-        UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(DO_TITLE_INSET.left, DO_TITLE_INSET.top,
-                                                                     _vActionSheet.frame.size.width - (DO_TITLE_INSET.left + DO_TITLE_INSET.right) , 0)];
+        UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(DO_AS_TITLE_INSET.left, DO_AS_TITLE_INSET.top,
+                                                                     _vActionSheet.frame.size.width - (DO_AS_TITLE_INSET.left + DO_AS_TITLE_INSET.right) , 0)];
         lbTitle.text = _strTitle;
         [self setLabelAttributes:lbTitle];
-        lbTitle.frame = CGRectMake(DO_TITLE_INSET.left, DO_TITLE_INSET.top, lbTitle.frame.size.width, [self getTextHeight:lbTitle]);
+        lbTitle.frame = CGRectMake(DO_AS_TITLE_INSET.left, DO_AS_TITLE_INSET.top, lbTitle.frame.size.width, [self getTextHeight:lbTitle]);
         lbTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_vActionSheet addSubview:lbTitle];
         
-        dHeight = lbTitle.frame.size.height + DO_TITLE_INSET.bottom;
+        dHeight = lbTitle.frame.size.height + DO_AS_TITLE_INSET.bottom;
         
         // underline
         UIView *vLine = [[UIView alloc] initWithFrame:CGRectMake(lbTitle.frame.origin.x, lbTitle.frame.origin.y + lbTitle.frame.size.height - 3, lbTitle.frame.size.width, 0.5)];
-        vLine.backgroundColor = DO_TITLE_TEXT_COLOR;
+        vLine.backgroundColor = DO_AS_TITLE_TEXT_COLOR;
         vLine.alpha = 0.2;
         vLine.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [_vActionSheet addSubview:vLine];
     }
     else
-        dHeight += DO_TITLE_INSET.bottom;
+        dHeight += DO_AS_TITLE_INSET.bottom;
 
     // add scrollview for many buttons and content
-    UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, dHeight + DO_BUTTON_INSET.top, 320, 370)];
+    UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, dHeight + DO_AS_BUTTON_INSET.top, 320, 370)];
     sc.backgroundColor = [UIColor clearColor];
     [_vActionSheet addSubview:sc];
     sc.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -189,7 +194,7 @@
 
     dYContent += [self addContent:sc];
     if (dYContent > 0)
-        dYContent += DO_BUTTON_INSET.bottom + DO_BUTTON_INSET.top;
+        dYContent += DO_AS_BUTTON_INSET.bottom + DO_AS_BUTTON_INSET.top;
 
     // add buttons
     int nTagIndex = 0;
@@ -200,39 +205,39 @@
         [bt setTitle:str forState:UIControlStateNormal];
         
         [self setButtonAttributes:bt cancel:NO];
-        bt.frame = CGRectMake(DO_BUTTON_INSET.left, dYContent,
-                              _vActionSheet.frame.size.width - (DO_BUTTON_INSET.left + DO_BUTTON_INSET.right), DO_BUTTON_HEIGHT);
+        bt.frame = CGRectMake(DO_AS_BUTTON_INSET.left, dYContent,
+                              _vActionSheet.frame.size.width - (DO_AS_BUTTON_INSET.left + DO_AS_BUTTON_INSET.right), DO_AS_BUTTON_HEIGHT);
         
-        dYContent += DO_BUTTON_HEIGHT + DO_BUTTON_INSET.bottom;
+        dYContent += DO_AS_BUTTON_HEIGHT + DO_AS_BUTTON_INSET.bottom;
         
         [sc addSubview:bt];
         
         if (nTagIndex == _nDestructiveIndex)
-            bt.backgroundColor = DO_DESTRUCTIVE_COLOR;
+            bt.backgroundColor = DO_AS_DESTRUCTIVE_COLOR;
 
         nTagIndex += 1;
    }
     
     sc.contentSize = CGSizeMake(sc.frame.size.width, dYContent);
-    dHeight += DO_BUTTON_INSET.bottom + MIN(dYContent, sc.frame.size.height);
+    dHeight += DO_AS_BUTTON_INSET.bottom + MIN(dYContent, sc.frame.size.height);
     
     // add Cancel button
     if (_strCancel != nil && _strCancel.length > 0)
     {
         UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
-        bt.tag = DO_CANCEL_TAG;
+        bt.tag = DO_AS_CANCEL_TAG;
         [bt setTitle:_strCancel forState:UIControlStateNormal];
         
         [self setButtonAttributes:bt cancel:YES];
-        bt.frame = CGRectMake(DO_BUTTON_INSET.left, dHeight + DO_BUTTON_INSET.top + DO_BUTTON_INSET.bottom,
-                              _vActionSheet.frame.size.width - (DO_BUTTON_INSET.left + DO_BUTTON_INSET.right), DO_BUTTON_HEIGHT);
+        bt.frame = CGRectMake(DO_AS_BUTTON_INSET.left, dHeight + DO_AS_BUTTON_INSET.top + DO_AS_BUTTON_INSET.bottom,
+                              _vActionSheet.frame.size.width - (DO_AS_BUTTON_INSET.left + DO_AS_BUTTON_INSET.right), DO_AS_BUTTON_HEIGHT);
         
-        dHeight += DO_BUTTON_HEIGHT + (DO_BUTTON_INSET.top + DO_BUTTON_INSET.bottom) * 2;
+        dHeight += DO_AS_BUTTON_HEIGHT + (DO_AS_BUTTON_INSET.top + DO_AS_BUTTON_INSET.bottom) * 2;
         
         [_vActionSheet addSubview:bt];
     }
     else
-        dHeight += DO_BUTTON_INSET.bottom;
+        dHeight += DO_AS_BUTTON_INSET.bottom;
     
     _vActionSheet.frame = CGRectMake(0, 0, _vActionSheet.frame.size.width, dHeight + 10);
 
@@ -274,7 +279,7 @@
     double dContentOffset = 0;
     
     switch (_nContentMode) {
-        case DoContentImage:
+        case DoASContentImage:
         {
             UIImageView *iv     = nil;
             if (_iImage != nil)
@@ -283,17 +288,17 @@
                 
                 iv = [[UIImageView alloc] initWithImage:iResized];
                 iv.contentMode = UIViewContentModeScaleAspectFit;
-                iv.frame = CGRectMake(DO_BUTTON_INSET.left, DO_BUTTON_INSET.top, iResized.size.width / 2, iResized.size.height / 2);
+                iv.frame = CGRectMake(DO_AS_BUTTON_INSET.left, DO_AS_BUTTON_INSET.top, iResized.size.width / 2, iResized.size.height / 2);
                 iv.center = CGPointMake(sc.center.x, iv.center.y);
                 iv.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 
                 [sc addSubview:iv];
-                dContentOffset = iv.frame.size.height + DO_BUTTON_INSET.bottom + DO_BUTTON_INSET.bottom;
+                dContentOffset = iv.frame.size.height + DO_AS_BUTTON_INSET.bottom + DO_AS_BUTTON_INSET.bottom;
             }
         }
             break;
             
-        case DoContentMap:
+        case DoASContentMap:
         {
             if (_dLocation == nil)
             {
@@ -301,7 +306,7 @@
                 break;
             }
             
-            MKMapView *vMap = [[MKMapView alloc] initWithFrame:CGRectMake(DO_BUTTON_INSET.left, DO_BUTTON_INSET.top,
+            MKMapView *vMap = [[MKMapView alloc] initWithFrame:CGRectMake(DO_AS_BUTTON_INSET.left, DO_AS_BUTTON_INSET.top,
                                                                           240, 180)];
             vMap.center = CGPointMake(sc.center.x, vMap.center.y);
             
@@ -313,9 +318,12 @@
             vMap.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 
             [sc addSubview:vMap];
-            dContentOffset = 180 + DO_BUTTON_INSET.bottom;
+            dContentOffset = 180 + DO_AS_BUTTON_INSET.bottom;
             
-//            [vMap showAnnotations:@[pointRavens,pointSteelers,pointBengals, pointBrowns] animated:YES];
+            MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
+            annotation.coordinate = vMap.centerCoordinate;
+            annotation.title = @"Here~";
+            [vMap addAnnotation:annotation];
         }
             break;
             
@@ -338,13 +346,13 @@
     self.alpha = 0.0;
 
     switch (_nAnimationType) {
-        case DoTransitionStyleNormal:
-        case DoTransitionStylePop:
+        case DoASTransitionStyleNormal:
+        case DoASTransitionStylePop:
             _vActionSheet.frame = CGRectMake(0, self.bounds.size.height,
                                              self.bounds.size.width, _vActionSheet.frame.size.height + _dRound + 5);
             break;
 
-        case DoTransitionStyleFade:
+        case DoASTransitionStyleFade:
             _vActionSheet.alpha = 0.0;
             _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 5,
                                              self.bounds.size.width, _vActionSheet.frame.size.height + _dRound + 5);
@@ -360,17 +368,17 @@
         [UIView setAnimationDelay:0.1];
 
         switch (_nAnimationType) {
-            case DoTransitionStyleNormal:
+            case DoASTransitionStyleNormal:
                 _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 15,
                                                  self.bounds.size.width, _vActionSheet.frame.size.height);
                 
                 break;
                 
-            case DoTransitionStyleFade:
+            case DoASTransitionStyleFade:
                 _vActionSheet.alpha = 1.0;
                 break;
                 
-            case DoTransitionStylePop:
+            case DoASTransitionStylePop:
                 _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 10,
                                                  self.bounds.size.width, _vActionSheet.frame.size.height);
                 
@@ -381,7 +389,7 @@
         }
     } completion:^(BOOL finished) {
 
-        if (_nAnimationType == DoTransitionStylePop)
+        if (_nAnimationType == DoASTransitionStylePop)
         {
             [UIView animateWithDuration:0.1 animations:^(void) {
 
@@ -407,16 +415,16 @@
     [UIView animateWithDuration:0.2 animations:^(void) {
 
         switch (_nAnimationType) {
-            case DoTransitionStyleNormal:
+            case DoASTransitionStyleNormal:
                 _vActionSheet.frame = CGRectMake(0, self.bounds.size.height,
                                                  self.bounds.size.width, _vActionSheet.frame.size.height);
                 break;
 
-            case DoTransitionStyleFade:
+            case DoASTransitionStyleFade:
                 _vActionSheet.alpha = 0.0;
                 break;
                 
-            case DoTransitionStylePop:
+            case DoASTransitionStylePop:
                 _vActionSheet.frame = CGRectMake(0, self.bounds.size.height - _vActionSheet.frame.size.height + 10,
                                                  self.bounds.size.width, _vActionSheet.frame.size.height);
 
@@ -424,7 +432,7 @@
         }
 
         [UIView setAnimationDelay:0.1];
-        if (_nAnimationType != DoTransitionStylePop)
+        if (_nAnimationType != DoASTransitionStylePop)
         {
             _vActionSheet.alpha = 0.0;
             self.alpha = 0.0;
@@ -432,7 +440,7 @@
         
     } completion:^(BOOL finished) {
         
-        if (_nAnimationType == DoTransitionStylePop)
+        if (_nAnimationType == DoASTransitionStylePop)
         {
             [UIView animateWithDuration:0.1 animations:^(void) {
                 
@@ -478,7 +486,7 @@
     if (CGRectContainsPoint(_vActionSheet.frame, pt))
         return;
 
-    _result(DO_CANCEL_TAG);
+    _result(DO_AS_CANCEL_TAG);
     [self hideAnimation];
 }
 
