@@ -62,7 +62,7 @@
         case 0:
             vActionSheet.nDestructiveIndex = 2;
             
-            [vActionSheet showC:@"What do you want for this photo?"
+            [vActionSheet showC:@"What do you want for this photo? "
                          cancel:@"Cancel"
                         buttons:@[@"Post to facebook", @"Post to Instagram", @"Delete this photo"]
                          result:^(int nResult) {
