@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "DoActionSheet.h"
+#import "DoActionSheet+Demo.h"
 
 @implementation ViewController
 
@@ -17,16 +17,25 @@
 
     _sgSelect.selectedSegmentIndex = 0;
     _sgType.selectedSegmentIndex = 0;
+    _sgStyle.selectedSegmentIndex = 0;
     
     [self onSelect:nil];
     [self onSelectAnimationType:nil];
+    [self onSelectStyle:nil];
 }
 
 - (IBAction)onShowAlert:(id)sender
 {
     DoActionSheet *vActionSheet = [[DoActionSheet alloc] init];
-
     vActionSheet.nAnimationType = _sgType.selectedSegmentIndex;
+    
+    if (_sgStyle.selectedSegmentIndex == 0)
+        [vActionSheet setStyle1];
+    else if (_sgStyle.selectedSegmentIndex == 1)
+        [vActionSheet setStyle2];
+    else if (_sgStyle.selectedSegmentIndex == 2)
+        [vActionSheet setStyle3];
+
     
     if (_sgSelect.selectedSegmentIndex != 1)
         vActionSheet.dRound = 5;
@@ -143,6 +152,24 @@
             break;
         case DoASTransitionStylePop:
             _lbType.text = @"DoTransitionStylePop";
+            break;
+            
+        default:
+            break;
+    }
+}
+
+- (IBAction)onSelectStyle:(id)sender
+{
+    switch (_sgStyle.selectedSegmentIndex) {
+        case 0:
+            _lbStyle.text = @"Style 1";
+            break;
+        case 1:
+            _lbStyle.text = @"Style 2";
+            break;
+        case 2:
+            _lbStyle.text = @"Style 3";
             break;
             
         default:

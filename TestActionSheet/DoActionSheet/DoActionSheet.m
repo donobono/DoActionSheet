@@ -120,8 +120,8 @@
     lb.textAlignment = NSTextAlignmentCenter;
     lb.numberOfLines = 0;
     
-    lb.font = DO_AS_TITLE_FONT;
-    lb.textColor = DO_AS_TITLE_TEXT_COLOR;
+    lb.font = (self.doTitleFont == nil) ? DO_TITLE_FONT : self.doTitleFont;
+    lb.textColor = (self.doTitleTextColor == nil) ? DO_TITLE_TEXT_COLOR : self.doTitleTextColor;
 }
 
 - (void)setButtonAttributes:(UIButton *)bt cancel:(BOOL)bCancel
@@ -130,15 +130,15 @@
 
     if (bCancel)
     {
-        bt.backgroundColor = DO_AS_CANCEL_COLOR;
-        bt.titleLabel.font = DO_AS_TITLE_FONT;
-        bt.titleLabel.textColor = DO_AS_CANCEL_TEXT_COLOR;
+        bt.backgroundColor = (self.doCancelColor == nil) ? DO_CANCEL_COLOR : self.doCancelColor;
+        bt.titleLabel.font = (self.doCancelFont == nil) ? DO_TITLE_FONT : self.doCancelFont;
+        [bt setTitleColor:(self.doCancelTextColor == nil) ? DO_CANCEL_TEXT_COLOR : self.doCancelTextColor forState:UIControlStateNormal];
     }
     else
     {
-        bt.backgroundColor = DO_AS_BUTTON_COLOR;
-        bt.titleLabel.font = DO_AS_BUTTON_FONT;
-        bt.titleLabel.textColor = DO_AS_BUTTON_TEXT_COLOR;
+        bt.backgroundColor = (self.doButtonColor == nil) ? DO_BUTTON_COLOR : self.doButtonColor;
+        bt.titleLabel.font = (self.doButtonFont == nil) ? DO_BUTTON_FONT : self.doButtonFont;
+        [bt setTitleColor:(self.doButtonTextColor == nil) ? DO_BUTTON_TEXT_COLOR : self.doButtonTextColor forState:UIControlStateNormal];
     }
 
     if (_dButtonRound > 0)
@@ -154,38 +154,45 @@
 - (void)showActionSheet
 {
     double dHeight = 0;
-    self.backgroundColor = DO_AS_DIMMED_COLOR;
+    self.backgroundColor = (self.doDimmedColor == nil) ? DO_DIMMED_COLOR : self.doDimmedColor;
 
     // make back view -----------------------------------------------------------------------------------------------
     _vActionSheet = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 0)];
-    _vActionSheet.backgroundColor = DO_AS_BACK_COLOR;
+    _vActionSheet.backgroundColor = (self.doBackColor == nil) ? DO_BACK_COLOR : self.doBackColor;
     [self addSubview:_vActionSheet];
     
     // Title --------------------------------------------------------------------------------------------------------
     if (_strTitle != nil && _strTitle.length > 0)
     {
-        UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(DO_AS_TITLE_INSET.left, DO_AS_TITLE_INSET.top,
-                                                                     _vActionSheet.frame.size.width - (DO_AS_TITLE_INSET.left + DO_AS_TITLE_INSET.right) , 0)];
+        if (self.doTitleInset.top == 0 && self.doTitleInset.left == 0 && self.doTitleInset.bottom == 0 && self.doTitleInset.right == 0) {
+            self.doTitleInset = DO_TITLE_INSET;
+        }
+        
+        UILabel *lbTitle = [[UILabel alloc] initWithFrame:CGRectMake(self.doTitleInset.left, self.doTitleInset.top,
+                                                                     _vActionSheet.frame.size.width - (self.doTitleInset.left + self.doTitleInset.right) , 0)];
         lbTitle.text = _strTitle;
         [self setLabelAttributes:lbTitle];
-        lbTitle.frame = CGRectMake(DO_AS_TITLE_INSET.left, DO_AS_TITLE_INSET.top, lbTitle.frame.size.width, [self getTextHeight:lbTitle]);
+        lbTitle.frame = CGRectMake(self.doTitleInset.left, self.doTitleInset.top, lbTitle.frame.size.width, [self getTextHeight:lbTitle]);
         lbTitle.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [_vActionSheet addSubview:lbTitle];
         
-        dHeight = lbTitle.frame.size.height + DO_AS_TITLE_INSET.bottom;
+        dHeight = lbTitle.frame.size.height + self.doTitleInset.bottom;
         
         // underline
         UIView *vLine = [[UIView alloc] initWithFrame:CGRectMake(lbTitle.frame.origin.x, lbTitle.frame.origin.y + lbTitle.frame.size.height - 3, lbTitle.frame.size.width, 0.5)];
-        vLine.backgroundColor = DO_AS_TITLE_TEXT_COLOR;
+        vLine.backgroundColor = (self.doTitleTextColor == nil) ? DO_TITLE_TEXT_COLOR : self.doTitleTextColor;
         vLine.alpha = 0.2;
         vLine.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [_vActionSheet addSubview:vLine];
     }
     else
-        dHeight += DO_AS_TITLE_INSET.bottom;
+        dHeight += self.doTitleInset.bottom;
 
+    if (self.doButtonInset.top == 0 && self.doButtonInset.left == 0 && self.doButtonInset.bottom == 0 && self.doButtonInset.right == 0) {
+        self.doButtonInset = DO_BUTTON_INSET;
+    }
     // add scrollview for many buttons and content
-    UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, dHeight + DO_AS_BUTTON_INSET.top, 320, DO_AS_SCROLL_HEIGHT)];
+    UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, dHeight + self.doButtonInset.top, 320, 370)];
     sc.backgroundColor = [UIColor clearColor];
     [_vActionSheet addSubview:sc];
     sc.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -194,7 +201,7 @@
 
     dYContent += [self addContent:sc];
     if (dYContent > 0)
-        dYContent += DO_AS_BUTTON_INSET.bottom + DO_AS_BUTTON_INSET.top;
+        dYContent += self.doButtonInset.bottom + self.doButtonInset.top;
 
     // add buttons
     int nTagIndex = 0;
@@ -205,21 +212,24 @@
         [bt setTitle:str forState:UIControlStateNormal];
         
         [self setButtonAttributes:bt cancel:NO];
-        bt.frame = CGRectMake(DO_AS_BUTTON_INSET.left, dYContent,
-                              _vActionSheet.frame.size.width - (DO_AS_BUTTON_INSET.left + DO_AS_BUTTON_INSET.right), DO_AS_BUTTON_HEIGHT);
+        bt.frame = CGRectMake(self.doButtonInset.left, dYContent,
+                              _vActionSheet.frame.size.width - (self.doButtonInset.left + self.doButtonInset.right), (self.doButtonHeight > 0) ? self.doButtonHeight : DO_BUTTON_HEIGHT);
         
-        dYContent += DO_AS_BUTTON_HEIGHT + DO_AS_BUTTON_INSET.bottom;
+        dYContent += ((self.doButtonHeight > 0) ? self.doButtonHeight : DO_BUTTON_HEIGHT) + self.doButtonInset.bottom;
         
         [sc addSubview:bt];
         
         if (nTagIndex == _nDestructiveIndex)
-            bt.backgroundColor = DO_AS_DESTRUCTIVE_COLOR;
+        {
+            bt.backgroundColor = (self.doDestructiveColor == nil) ? DO_DESTRUCTIVE_COLOR : self.doDestructiveColor;
+            [bt setTitleColor:(self.doDestructiveTextColor == nil) ? DO_DESTRUCTIVE_TEXT_COLOR : self.doDestructiveTextColor forState:UIControlStateNormal];
+        }
 
         nTagIndex += 1;
    }
     
     sc.contentSize = CGSizeMake(sc.frame.size.width, dYContent);
-    dHeight += DO_AS_BUTTON_INSET.bottom + MIN(dYContent, sc.frame.size.height);
+    dHeight += self.doButtonInset.bottom + MIN(dYContent, sc.frame.size.height);
     
     // add Cancel button
     if (_strCancel != nil && _strCancel.length > 0)
@@ -229,15 +239,15 @@
         [bt setTitle:_strCancel forState:UIControlStateNormal];
         
         [self setButtonAttributes:bt cancel:YES];
-        bt.frame = CGRectMake(DO_AS_BUTTON_INSET.left, dHeight + DO_AS_BUTTON_INSET.top + DO_AS_BUTTON_INSET.bottom,
-                              _vActionSheet.frame.size.width - (DO_AS_BUTTON_INSET.left + DO_AS_BUTTON_INSET.right), DO_AS_BUTTON_HEIGHT);
+        bt.frame = CGRectMake(self.doButtonInset.left, dHeight + self.doButtonInset.top + self.doButtonInset.bottom,
+                              _vActionSheet.frame.size.width - (self.doButtonInset.left + self.doButtonInset.right), (self.doButtonHeight > 0) ? self.doButtonHeight : DO_BUTTON_HEIGHT);
         
-        dHeight += DO_AS_BUTTON_HEIGHT + (DO_AS_BUTTON_INSET.top + DO_AS_BUTTON_INSET.bottom) * 2;
+        dHeight += ((self.doButtonHeight > 0) ? self.doButtonHeight : DO_BUTTON_HEIGHT) + (self.doButtonInset.top + self.doButtonInset.bottom) * 2;
         
         [_vActionSheet addSubview:bt];
     }
     else
-        dHeight += DO_AS_BUTTON_INSET.bottom;
+        dHeight += self.doButtonInset.bottom;
     
     _vActionSheet.frame = CGRectMake(0, 0, _vActionSheet.frame.size.width, dHeight + 10);
 
@@ -278,6 +288,9 @@
 {
     double dContentOffset = 0;
     
+    if (self.doButtonInset.top == 0 && self.doButtonInset.left == 0 && self.doButtonInset.bottom == 0 && self.doButtonInset.right == 0) {
+        self.doButtonInset = DO_BUTTON_INSET;
+    }
     switch (_nContentMode) {
         case DoASContentImage:
         {
@@ -288,12 +301,12 @@
                 
                 iv = [[UIImageView alloc] initWithImage:iResized];
                 iv.contentMode = UIViewContentModeScaleAspectFit;
-                iv.frame = CGRectMake(DO_AS_BUTTON_INSET.left, DO_AS_BUTTON_INSET.top, iResized.size.width / 2, iResized.size.height / 2);
+                iv.frame = CGRectMake(self.doButtonInset.left, self.doButtonInset.top, iResized.size.width / 2, iResized.size.height / 2);
                 iv.center = CGPointMake(sc.center.x, iv.center.y);
                 iv.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 
                 [sc addSubview:iv];
-                dContentOffset = iv.frame.size.height + DO_AS_BUTTON_INSET.bottom + DO_AS_BUTTON_INSET.bottom;
+                dContentOffset = iv.frame.size.height + self.doButtonInset.bottom + self.doButtonInset.bottom;
             }
         }
             break;
@@ -306,7 +319,7 @@
                 break;
             }
             
-            MKMapView *vMap = [[MKMapView alloc] initWithFrame:CGRectMake(DO_AS_BUTTON_INSET.left, DO_AS_BUTTON_INSET.top,
+            MKMapView *vMap = [[MKMapView alloc] initWithFrame:CGRectMake(self.doButtonInset.left, self.doButtonInset.top,
                                                                           240, 180)];
             vMap.center = CGPointMake(sc.center.x, vMap.center.y);
             
@@ -318,7 +331,7 @@
             vMap.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 
             [sc addSubview:vMap];
-            dContentOffset = 180 + DO_AS_BUTTON_INSET.bottom;
+            dContentOffset = 180 + self.doButtonInset.bottom;
             
             MKPointAnnotation *annotation = [[MKPointAnnotation alloc] init];
             annotation.coordinate = vMap.centerCoordinate;
