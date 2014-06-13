@@ -185,7 +185,7 @@
         dHeight += DO_AS_TITLE_INSET.bottom;
 
     // add scrollview for many buttons and content
-    UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, dHeight + DO_AS_BUTTON_INSET.top, 320, 370)];
+    UIScrollView *sc = [[UIScrollView alloc] initWithFrame:CGRectMake(0, dHeight + DO_AS_BUTTON_INSET.top, 320, DO_AS_SCROLL_HEIGHT)];
     sc.backgroundColor = [UIColor clearColor];
     [_vActionSheet addSubview:sc];
     sc.autoresizingMask = UIViewAutoresizingFlexibleWidth;

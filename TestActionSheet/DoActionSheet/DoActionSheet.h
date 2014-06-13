@@ -74,6 +74,7 @@
 #define DO_AS_BUTTON_INSET         UIEdgeInsetsMake(5, 20, 5, 20)
 
 #define DO_AS_BUTTON_HEIGHT        40
+#define DO_AS_SCROLL_HEIGHT        300
 
 #define DO_AS_CANCEL_TAG           -100
 
