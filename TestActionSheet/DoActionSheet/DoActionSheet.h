@@ -124,6 +124,34 @@ typedef void(^DoActionSheetHandler)(int nResult);
 // for Map view
 @property (nonatomic, strong)   NSDictionary    *dLocation; // latitude, longitude
 
+// button background color
+@property (strong, nonatomic)   UIColor         *doBackColor;
+@property (strong, nonatomic)   UIColor         *doButtonColor;
+@property (strong, nonatomic)   UIColor         *doCancelColor;
+@property (strong, nonatomic)   UIColor         *doDestructiveColor;
+
+// button text color
+@property (strong, nonatomic)   UIColor         *doTitleTextColor;
+@property (strong, nonatomic)   UIColor         *doButtonTextColor;
+@property (strong, nonatomic)   UIColor         *doCancelTextColor;
+@property (strong, nonatomic)   UIColor         *doDestructiveTextColor;
+
+// dimmed color
+@property (strong, nonatomic)   UIColor         *doDimmedColor;
+
+// button font
+@property (strong, nonatomic)   UIFont          *doTitleFont;
+@property (strong, nonatomic)   UIFont          *doButtonFont;
+@property (strong, nonatomic)   UIFont          *doCancelFont;
+
+// insets
+@property (readwrite)   UIEdgeInsets    doTitleInset;
+@property (readwrite)   UIEdgeInsets    doButtonInset;
+
+// button height
+@property (readwrite)   CGFloat         doButtonHeight;
+
+
 // with cancel button and other buttons
 - (void)showC:(NSString *)strTitle
        cancel:(NSString *)strCancel

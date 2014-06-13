@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04A8964E194AE7EE00EE8B44 /* DoActionSheet+Demo.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A8964D194AE7EE00EE8B44 /* DoActionSheet+Demo.m */; };
 		737FA50218750684008FA5AA /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 737FA4FC18750684008FA5AA /* .gitignore */; };
 		737FA50318750684008FA5AA /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 737FA4FD18750684008FA5AA /* LICENSE */; };
 		737FA50418750684008FA5AA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 737FA4FE18750684008FA5AA /* README.md */; };
@@ -42,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04A8964C194AE7EE00EE8B44 /* DoActionSheet+Demo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DoActionSheet+Demo.h"; sourceTree = "<group>"; };
+		04A8964D194AE7EE00EE8B44 /* DoActionSheet+Demo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DoActionSheet+Demo.m"; sourceTree = "<group>"; };
 		737FA4FC18750684008FA5AA /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		737FA4FD18750684008FA5AA /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		737FA4FE18750684008FA5AA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				A5B957AC1873B38F0072554B /* Main.storyboard */,
 				A5B957AF1873B38F0072554B /* ViewController.h */,
 				A5B957B01873B38F0072554B /* ViewController.m */,
+				04A8964C194AE7EE00EE8B44 /* DoActionSheet+Demo.h */,
+				04A8964D194AE7EE00EE8B44 /* DoActionSheet+Demo.m */,
 				A5B957B21873B38F0072554B /* Images.xcassets */,
 				737FA50718750886008FA5AA /* Resource */,
 				A5B957A11873B38F0072554B /* Supporting Files */,
@@ -332,6 +337,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A5B957B11873B38F0072554B /* ViewController.m in Sources */,
+				04A8964E194AE7EE00EE8B44 /* DoActionSheet+Demo.m in Sources */,
 				737FA50518750684008FA5AA /* UIImage+ResizeMagick.m in Sources */,
 				A5B957DA1873C3EA0072554B /* DoActionSheet.m in Sources */,
 				A5B957AB1873B38F0072554B /* AppDelegate.m in Sources */,
