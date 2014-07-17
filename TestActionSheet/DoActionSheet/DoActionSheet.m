@@ -222,27 +222,28 @@
     int nTagIndex = 0;
     for (id str in _aButtons)
     {
+        UIButton *bt;
         if ([str isKindOfClass:[UIButton class]]) {
-            [sc addSubview:str];
+            bt = (UIButton *)str;
         }else{
-            UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
-            bt.tag = nTagIndex;
+            bt = [UIButton buttonWithType:UIButtonTypeCustom];
             [bt setTitle:str forState:UIControlStateNormal];
-            
-            [self setButtonAttributes:bt cancel:NO];
-            bt.frame = CGRectMake(self.doButtonInset.left, dYContent,
-                                  _vActionSheet.frame.size.width - (self.doButtonInset.left + self.doButtonInset.right), (self.doButtonHeight > 0) ? self.doButtonHeight : DO_AS_BUTTON_HEIGHT);
-            
-            dYContent += ((self.doButtonHeight > 0) ? self.doButtonHeight : DO_AS_BUTTON_HEIGHT) + self.doButtonInset.bottom;
-            
-            [sc addSubview:bt];
-            
-            if (nTagIndex == _nDestructiveIndex)
-            {
-                bt.backgroundColor = (self.doDestructiveColor == nil) ? DO_AS_DESTRUCTIVE_COLOR : self.doDestructiveColor;
-                [bt setTitleColor:(self.doDestructiveTextColor == nil) ? DO_AS_DESTRUCTIVE_TEXT_COLOR : self.doDestructiveTextColor forState:UIControlStateNormal];
-            }
         }
+        bt.tag = nTagIndex;
+        [self setButtonAttributes:bt cancel:NO];
+        bt.frame = CGRectMake(self.doButtonInset.left, dYContent,
+                              _vActionSheet.frame.size.width - (self.doButtonInset.left + self.doButtonInset.right), (self.doButtonHeight > 0) ? self.doButtonHeight : DO_AS_BUTTON_HEIGHT);
+        
+        dYContent += ((self.doButtonHeight > 0) ? self.doButtonHeight : DO_AS_BUTTON_HEIGHT) + self.doButtonInset.bottom;
+        
+        [sc addSubview:bt];
+        
+        if (nTagIndex == _nDestructiveIndex)
+        {
+            bt.backgroundColor = (self.doDestructiveColor == nil) ? DO_AS_DESTRUCTIVE_COLOR : self.doDestructiveColor;
+            [bt setTitleColor:(self.doDestructiveTextColor == nil) ? DO_AS_DESTRUCTIVE_TEXT_COLOR : self.doDestructiveTextColor forState:UIControlStateNormal];
+        }
+        
         nTagIndex += 1;
    }
     
