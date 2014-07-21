@@ -194,11 +194,13 @@
         dHeight = lbTitle.frame.size.height + self.doTitleInset.bottom;
         
         // underline
-        UIView *vLine = [[UIView alloc] initWithFrame:CGRectMake(lbTitle.frame.origin.x, lbTitle.frame.origin.y + lbTitle.frame.size.height - 3, lbTitle.frame.size.width, 0.5)];
-        vLine.backgroundColor = (self.doTitleTextColor == nil) ? DO_AS_TITLE_TEXT_COLOR : self.doTitleTextColor;
-        vLine.alpha = 0.2;
-        vLine.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [_vActionSheet addSubview:vLine];
+        if (_underLineEnable) {
+            UIView *vLine = [[UIView alloc] initWithFrame:CGRectMake(lbTitle.frame.origin.x, lbTitle.frame.origin.y + lbTitle.frame.size.height - 3, lbTitle.frame.size.width, 0.5)];
+            vLine.backgroundColor = (self.doTitleTextColor == nil) ? DO_AS_TITLE_TEXT_COLOR : self.doTitleTextColor;
+            vLine.alpha = 0.2;
+            vLine.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+            [_vActionSheet addSubview:vLine];
+        }
     }
     else
         dHeight += self.doTitleInset.bottom;
@@ -220,12 +222,16 @@
 
     // add buttons
     int nTagIndex = 0;
-    for (NSString *str in _aButtons)
+    for (id str in _aButtons)
     {
-        UIButton *bt = [UIButton buttonWithType:UIButtonTypeCustom];
+        UIButton *bt;
+        if ([str isKindOfClass:[UIButton class]]) {
+            bt = (UIButton *)str;
+        }else{
+            bt = [UIButton buttonWithType:UIButtonTypeCustom];
+            [bt setTitle:str forState:UIControlStateNormal];
+        }
         bt.tag = nTagIndex;
-        [bt setTitle:str forState:UIControlStateNormal];
-        
         [self setButtonAttributes:bt cancel:NO];
         bt.frame = CGRectMake(self.doButtonInset.left, dYContent,
                               _vActionSheet.frame.size.width - (self.doButtonInset.left + self.doButtonInset.right), (self.doButtonHeight > 0) ? self.doButtonHeight : DO_AS_BUTTON_HEIGHT);
@@ -239,7 +245,7 @@
             bt.backgroundColor = (self.doDestructiveColor == nil) ? DO_AS_DESTRUCTIVE_COLOR : self.doDestructiveColor;
             [bt setTitleColor:(self.doDestructiveTextColor == nil) ? DO_AS_DESTRUCTIVE_TEXT_COLOR : self.doDestructiveTextColor forState:UIControlStateNormal];
         }
-
+        
         nTagIndex += 1;
    }
     
