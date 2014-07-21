@@ -194,11 +194,13 @@
         dHeight = lbTitle.frame.size.height + self.doTitleInset.bottom;
         
         // underline
-        UIView *vLine = [[UIView alloc] initWithFrame:CGRectMake(lbTitle.frame.origin.x, lbTitle.frame.origin.y + lbTitle.frame.size.height - 3, lbTitle.frame.size.width, 0.5)];
-        vLine.backgroundColor = (self.doTitleTextColor == nil) ? DO_AS_TITLE_TEXT_COLOR : self.doTitleTextColor;
-        vLine.alpha = 0.2;
-        vLine.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        [_vActionSheet addSubview:vLine];
+        if (_underLineEnable) {
+            UIView *vLine = [[UIView alloc] initWithFrame:CGRectMake(lbTitle.frame.origin.x, lbTitle.frame.origin.y + lbTitle.frame.size.height - 3, lbTitle.frame.size.width, 0.5)];
+            vLine.backgroundColor = (self.doTitleTextColor == nil) ? DO_AS_TITLE_TEXT_COLOR : self.doTitleTextColor;
+            vLine.alpha = 0.2;
+            vLine.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+            [_vActionSheet addSubview:vLine];
+        }
     }
     else
         dHeight += self.doTitleInset.bottom;

@@ -22,6 +22,15 @@ DoActionSheet
 - iOS 7.0 and greater
 - ARC
 
+## ChangeLog
+### 1.1.1
+1. custom buttons enable
+	
+### 1.1.2
+1. underLineEnable enable
+
+	@property (assign, nonatomic) BOOL underLineEnable;
+
 
 ## Examples
 
@@ -85,6 +94,7 @@ vActionSheet.nDestructiveIndex = 2;
 #define DO_CANCEL_TEXT_COLOR        DO_RGB(255, 255, 255)
 #define DO_DESTRUCTIVE_TEXT_COLOR   DO_RGB(255, 255, 255)
 ```
+
 
 ## Credits
 

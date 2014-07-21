@@ -152,6 +152,9 @@ typedef void(^DoActionSheetHandler)(int nResult);
 // button height
 @property (readwrite)   CGFloat         doButtonHeight;
 
+// underline enable
+@property (assign, nonatomic) BOOL underLineEnable;
+
 
 // with cancel button and other buttons
 - (void)showC:(NSString *)strTitle
